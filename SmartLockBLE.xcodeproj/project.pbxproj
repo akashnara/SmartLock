@@ -1,0 +1,438 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA908EE62F9B2E7700373B85 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA908EE32F9B2E7700373B85 /* ContentView.swift */; };
+		AA908EE72F9B2E7700373B85 /* SmartLockBLEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA908EE42F9B2E7700373B85 /* SmartLockBLEApp.swift */; };
+		AA908EE82F9B2E7700373B85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA908EE22F9B2E7700373B85 /* Assets.xcassets */; };
+		BB100001BBBBBBBBCCCCCCCC /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100000BBBBBBBBCCCCCCCC /* BLEManager.swift */; };
+		BB110001BBBBBBBBCCCCCCCC /* SmartLockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110000BBBBBBBBCCCCCCCC /* SmartLockService.swift */; };
+		BB200001BBBBBBBBCCCCCCCC /* BLEDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB200000BBBBBBBBCCCCCCCC /* BLEDevice.swift */; };
+		BB210001BBBBBBBBCCCCCCCC /* LockStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB210000BBBBBBBBCCCCCCCC /* LockStatus.swift */; };
+		BB220001BBBBBBBBCCCCCCCC /* DeviceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB220000BBBBBBBBCCCCCCCC /* DeviceEvent.swift */; };
+		BB300001BBBBBBBBCCCCCCCC /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB300000BBBBBBBBCCCCCCCC /* ScanView.swift */; };
+		BB310001BBBBBBBBCCCCCCCC /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB310000BBBBBBBBCCCCCCCC /* DeviceRowView.swift */; };
+		BB320001BBBBBBBBCCCCCCCC /* LockControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB320000BBBBBBBBCCCCCCCC /* LockControlView.swift */; };
+		BB400001BBBBBBBBCCCCCCCC /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB400000BBBBBBBBCCCCCCCC /* ScanViewModel.swift */; };
+		BB410001BBBBBBBBCCCCCCCC /* LockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA908ED42F9B2E6F00373B85 /* SmartLockBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA908EE22F9B2E7700373B85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA908EE32F9B2E7700373B85 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AA908EE42F9B2E7700373B85 /* SmartLockBLEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLockBLEApp.swift; sourceTree = "<group>"; };
+		BB100000BBBBBBBBCCCCCCCC /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
+		BB110000BBBBBBBBCCCCCCCC /* SmartLockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLockService.swift; sourceTree = "<group>"; };
+		BB200000BBBBBBBBCCCCCCCC /* BLEDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEDevice.swift; sourceTree = "<group>"; };
+		BB210000BBBBBBBBCCCCCCCC /* LockStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockStatus.swift; sourceTree = "<group>"; };
+		BB220000BBBBBBBBCCCCCCCC /* DeviceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEvent.swift; sourceTree = "<group>"; };
+		BB300000BBBBBBBBCCCCCCCC /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		BB310000BBBBBBBBCCCCCCCC /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRowView.swift; sourceTree = "<group>"; };
+		BB320000BBBBBBBBCCCCCCCC /* LockControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockControlView.swift; sourceTree = "<group>"; };
+		BB400000BBBBBBBBCCCCCCCC /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
+		BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA908ED12F9B2E6F00373B85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA908ECB2F9B2E6F00373B85 = {
+			isa = PBXGroup;
+			children = (
+				AA908EE52F9B2E7700373B85 /* SmartLockBLE */,
+				AA908ED52F9B2E6F00373B85 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA908ED52F9B2E6F00373B85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA908ED42F9B2E6F00373B85 /* SmartLockBLE.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA908EE52F9B2E7700373B85 /* SmartLockBLE */ = {
+			isa = PBXGroup;
+			children = (
+				BB010000BBBBBBBBCCCCCCCC /* App */,
+				BB020000BBBBBBBBCCCCCCCC /* BLE */,
+				BB030000BBBBBBBBCCCCCCCC /* Models */,
+				BB040000BBBBBBBBCCCCCCCC /* Views */,
+				BB050000BBBBBBBBCCCCCCCC /* ViewModels */,
+				AA908EE22F9B2E7700373B85 /* Assets.xcassets */,
+			);
+			path = SmartLockBLE;
+			sourceTree = "<group>";
+		};
+		BB010000BBBBBBBBCCCCCCCC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA908EE42F9B2E7700373B85 /* SmartLockBLEApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BB020000BBBBBBBBCCCCCCCC /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				BB100000BBBBBBBBCCCCCCCC /* BLEManager.swift */,
+				BB110000BBBBBBBBCCCCCCCC /* SmartLockService.swift */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
+		BB030000BBBBBBBBCCCCCCCC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB200000BBBBBBBBCCCCCCCC /* BLEDevice.swift */,
+				BB210000BBBBBBBBCCCCCCCC /* LockStatus.swift */,
+				BB220000BBBBBBBBCCCCCCCC /* DeviceEvent.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BB040000BBBBBBBBCCCCCCCC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA908EE32F9B2E7700373B85 /* ContentView.swift */,
+				BB300000BBBBBBBBCCCCCCCC /* ScanView.swift */,
+				BB310000BBBBBBBBCCCCCCCC /* DeviceRowView.swift */,
+				BB320000BBBBBBBBCCCCCCCC /* LockControlView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BB050000BBBBBBBBCCCCCCCC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BB400000BBBBBBBBCCCCCCCC /* ScanViewModel.swift */,
+				BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA908ED32F9B2E6F00373B85 /* SmartLockBLE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA908EDF2F9B2E7100373B85 /* Build configuration list for PBXNativeTarget "SmartLockBLE" */;
+			buildPhases = (
+				AA908ED02F9B2E6F00373B85 /* Sources */,
+				AA908ED12F9B2E6F00373B85 /* Frameworks */,
+				AA908ED22F9B2E6F00373B85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartLockBLE;
+			packageProductDependencies = (
+			);
+			productName = SmartLockBLE;
+			productReference = AA908ED42F9B2E6F00373B85 /* SmartLockBLE.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA908ECC2F9B2E6F00373B85 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					AA908ED32F9B2E6F00373B85 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
+			};
+			buildConfigurationList = AA908ECF2F9B2E6F00373B85 /* Build configuration list for PBXProject "SmartLockBLE" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA908ECB2F9B2E6F00373B85;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AA908ED52F9B2E6F00373B85 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA908ED32F9B2E6F00373B85 /* SmartLockBLE */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA908ED22F9B2E6F00373B85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA908EE82F9B2E7700373B85 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA908ED02F9B2E6F00373B85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA908EE62F9B2E7700373B85 /* ContentView.swift in Sources */,
+				AA908EE72F9B2E7700373B85 /* SmartLockBLEApp.swift in Sources */,
+				BB100001BBBBBBBBCCCCCCCC /* BLEManager.swift in Sources */,
+				BB110001BBBBBBBBCCCCCCCC /* SmartLockService.swift in Sources */,
+				BB200001BBBBBBBBCCCCCCCC /* BLEDevice.swift in Sources */,
+				BB210001BBBBBBBBCCCCCCCC /* LockStatus.swift in Sources */,
+				BB220001BBBBBBBBCCCCCCCC /* DeviceEvent.swift in Sources */,
+				BB300001BBBBBBBBCCCCCCCC /* ScanView.swift in Sources */,
+				BB310001BBBBBBBBCCCCCCCC /* DeviceRowView.swift in Sources */,
+				BB320001BBBBBBBBCCCCCCCC /* LockControlView.swift in Sources */,
+				BB400001BBBBBBBBCCCCCCCC /* ScanViewModel.swift in Sources */,
+				BB410001BBBBBBBBCCCCCCCC /* LockViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA908EDD2F9B2E7100373B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA908EDE2F9B2E7100373B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA908EE02F9B2E7100373B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = T5Y544FW66;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to your smart lock.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartsense.xip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = genericDevProfile;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA908EE12F9B2E7100373B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = T5Y544FW66;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to your smart lock.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartsense.xip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = genericDevProfile;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA908ECF2F9B2E6F00373B85 /* Build configuration list for PBXProject "SmartLockBLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA908EDD2F9B2E7100373B85 /* Debug */,
+				AA908EDE2F9B2E7100373B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA908EDF2F9B2E7100373B85 /* Build configuration list for PBXNativeTarget "SmartLockBLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA908EE02F9B2E7100373B85 /* Debug */,
+				AA908EE12F9B2E7100373B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA908ECC2F9B2E6F00373B85 /* Project object */;
+}
