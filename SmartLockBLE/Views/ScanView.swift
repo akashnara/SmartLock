@@ -28,23 +28,60 @@ struct ScanView: View {
     }
 
     private var deviceListView: some View {
-        List {
-            if viewModel.discoveredDevices.isEmpty {
-                HStack(spacing: 12) {
-                    if viewModel.isScanning { ProgressView() }
-                    Text(viewModel.isScanning ? "Scanning for devices..." : "No devices found. Tap Scan.")
-                        .foregroundStyle(.secondary)
-                }
-                .listRowSeparator(.hidden)
-            } else {
-                ForEach(viewModel.discoveredDevices) { device in
-                    DeviceRowView(device: device, isConnecting: viewModel.isConnecting) {
-                        viewModel.connect(to: device)
+        VStack(spacing: 0) {
+            if viewModel.showSearch {
+                searchBar
+            }
+            List {
+                if viewModel.discoveredDevices.isEmpty {
+                    HStack(spacing: 12) {
+                        if viewModel.isScanning { ProgressView() }
+                        Text(viewModel.isScanning ? "Scanning for devices..." : "No devices found. Tap Scan.")
+                            .foregroundStyle(.secondary)
+                    }
+                    .listRowSeparator(.hidden)
+                } else if viewModel.filteredDevices.isEmpty {
+                    HStack(spacing: 8) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.secondary)
+                        Text("No devices match \"\(viewModel.searchText)\"")
+                            .foregroundStyle(.secondary)
+                    }
+                    .listRowSeparator(.hidden)
+                } else {
+                    ForEach(viewModel.filteredDevices) { device in
+                        DeviceRowView(device: device, isConnecting: viewModel.isConnecting) {
+                            viewModel.connect(to: device)
+                        }
                     }
                 }
             }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
+    }
+
+    private var searchBar: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(.secondary)
+            TextField("Search devices...", text: $viewModel.searchText)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            if !viewModel.searchText.isEmpty {
+                Button {
+                    viewModel.searchText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(10)
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color(.systemBackground))
     }
 
     private var bluetoothUnavailableView: some View {

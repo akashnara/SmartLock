@@ -25,12 +25,18 @@ class BLEManager: NSObject, ObservableObject {
     // Debug: list of all (serviceUUID, charUUID, properties) found on connected device
     @Published var discoveredCharacteristics: [DiscoveredChar] = []
 
+    @Published var isTransferring: Bool = false
+    @Published var transferProgress: Double = 0.0
+
     private var centralManager: CBCentralManager!
     private var connectedPeripheral: CBPeripheral?
     private var deviceCommandChar: CBCharacteristic?
     private var lockStatusChar: CBCharacteristic?
     private var deviceEventChar: CBCharacteristic?
     private var batteryLevelChar: CBCharacteristic?
+    private var fileTransferChar: CBCharacteristic?
+    private var pendingWriteContinuation: CheckedContinuation<Void, Error>?
+    private var pendingReadyContinuation: CheckedContinuation<Void, Never>?
 
     override init() {
         super.init()
@@ -119,14 +125,145 @@ class BLEManager: NSObject, ObservableObject {
         lockStatusChar = nil
         deviceEventChar = nil
         batteryLevelChar = nil
+        fileTransferChar = nil
+        pendingWriteContinuation?.resume(throwing: BLETransferError.disconnected)
+        pendingWriteContinuation = nil
+        pendingReadyContinuation?.resume()
+        pendingReadyContinuation = nil
         lockStatus = .unknown
         devicePowerState = .unknown
         batteryLevel = nil
+        isTransferring = false
+        transferProgress = 0.0
         isNotificationsEnabled = false
         deviceEvents.removeAll()
         discoveredCharacteristics.removeAll()
         connectedDevice = nil
         connectedPeripheral = nil
+    }
+
+    // MARK: - File Transfer
+
+    /// Set to true to simulate a transfer with fake progress (useful for UI demos
+    /// without real Nordic hardware). Real BLE writes are skipped entirely.
+    var useMockTransfer: Bool = false
+
+    func sendFile(at url: URL) async throws {
+        if useMockTransfer {
+            try await simulateMockTransfer(url: url)
+            return
+        }
+
+        guard let peripheral = connectedPeripheral else {
+            throw BLETransferError.notConnected
+        }
+        guard let char = fileTransferChar ?? deviceCommandChar else {
+            throw BLETransferError.noWritableCharacteristic
+        }
+
+        // Prefer .withoutResponse for bulk data transfer: it has higher throughput and is
+        // what most custom BLE file-transfer characteristics expect. Many peripherals declare
+        // both .write and .writeWithoutResponse but only implement Write Command (without
+        // response) — sending a Write Request (with response) to such a characteristic
+        // causes ATT error 6 "Request Not Supported".
+        let writeType: CBCharacteristicWriteType
+        if char.properties.contains(.writeWithoutResponse) {
+            writeType = .withoutResponse
+        } else if char.properties.contains(.write) {
+            writeType = .withResponse
+        } else {
+            throw BLETransferError.noWritableCharacteristic
+        }
+
+        let writeTypeName = writeType == .withResponse ? "withResponse" : "withoutResponse"
+
+        let fileData: Data
+        do {
+            fileData = try Data(contentsOf: url)
+        } catch {
+            throw BLETransferError.writeError(error,
+                                              charUUID: char.uuid.uuidString,
+                                              writeType: writeTypeName)
+        }
+
+        let chunkSize = peripheral.maximumWriteValueLength(for: writeType)
+        let totalBytes = fileData.count
+        var bytesSent = 0
+
+        isTransferring = true
+        transferProgress = 0.0
+        defer { isTransferring = false }
+
+        while bytesSent < totalBytes {
+            guard connectedPeripheral != nil else {
+                throw BLETransferError.disconnected
+            }
+
+            let end = min(bytesSent + chunkSize, totalBytes)
+            let chunk = fileData.subdata(in: bytesSent..<end)
+
+            if writeType == .withResponse {
+                // didWriteValueFor resumes this continuation after each ACK
+                try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+                    precondition(pendingWriteContinuation == nil,
+                                 "BLEManager: overlapping file transfer writes — this should never happen")
+                    pendingWriteContinuation = cont
+                    peripheral.writeValue(chunk, for: char, type: .withResponse)
+                }
+            } else {
+                // Wait for the peripheral's TX buffer to drain before sending
+                if !peripheral.canSendWriteWithoutResponse {
+                    await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
+                        pendingReadyContinuation = cont
+                    }
+                    guard connectedPeripheral != nil else {
+                        throw BLETransferError.disconnected
+                    }
+                }
+                peripheral.writeValue(chunk, for: char, type: .withoutResponse)
+            }
+
+            bytesSent = end
+            transferProgress = Double(bytesSent) / Double(totalBytes)
+        }
+    }
+
+    private func simulateMockTransfer(url: URL) async throws {
+        let totalBytes = (try? Data(contentsOf: url))?.count ?? 1
+        let steps = 20
+
+        isTransferring = true
+        transferProgress = 0.0
+        defer { isTransferring = false }
+
+        for step in 1...steps {
+            try await Task.sleep(nanoseconds: 150_000_000)   // 150 ms per step
+            guard connectedPeripheral != nil else { throw BLETransferError.disconnected }
+            transferProgress = Double(step) / Double(steps)
+        }
+        _ = totalBytes  // suppress unused warning
+    }
+}
+
+// MARK: - BLETransferError
+
+enum BLETransferError: LocalizedError {
+    case notConnected
+    case noWritableCharacteristic
+    case writeError(Error, charUUID: String, writeType: String)
+    case disconnected
+
+    var errorDescription: String? {
+        switch self {
+        case .notConnected:
+            return "No device connected. Please connect a device and try again."
+        case .noWritableCharacteristic:
+            return "Device does not expose a writable characteristic for file transfer."
+        case .writeError(let error, let uuid, let type):
+            return "Write failed on \(uuid) (\(type)): \(error.localizedDescription)"
+        case .disconnected:
+            return "Device disconnected during transfer."
+        }
     }
 }
 
@@ -233,9 +370,13 @@ extension BLEManager: CBPeripheralDelegate {
             discoveredCharacteristics.append(.from(char, service: service))
 
             // Primary: match by UUID (update SmartLockService.swift with your device's real UUIDs)
+            print(char.uuid)
             switch char.uuid {
             case SmartLockService.deviceCommandCharUUID:
                 deviceCommandChar = char
+
+            case SmartLockService.fileTransferCharUUID:
+                fileTransferChar = char
 
             case SmartLockService.lockStatusCharUUID:
                 lockStatusChar = char
@@ -295,16 +436,25 @@ extension BLEManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral,
                     didWriteValueFor characteristic: CBCharacteristic,
                     error: Error?) {
+        // Route file-transfer chunk ACK to the waiting continuation (regardless of char UUID,
+        // because fileTransferChar may fall back to deviceCommandChar on some peripherals)
+        if let continuation = pendingWriteContinuation {
+            pendingWriteContinuation = nil
+            if let error {
+                continuation.resume(throwing: BLETransferError.writeError(
+                    error,
+                    charUUID: characteristic.uuid.uuidString,
+                    writeType: "withResponse"
+                ))
+            } else {
+                continuation.resume(returning: ())
+            }
+            return
+        }
+        // Normal device command write (LED on/off)
         if let error {
             errorMessage = error.localizedDescription
             devicePowerState = .unknown
-            return
-        }
-        // For Nordic LBS the LED write has no read-back; reflect the command we sent
-        if characteristic.uuid == SmartLockService.deviceCommandCharUUID {
-            // devicePowerState was set to .processing before write; resolve it now
-            // The actual byte we wrote is no longer accessible here, so we keep
-            // whatever the UI optimistically set — button state arrives via notify
         }
     }
 
@@ -314,6 +464,13 @@ extension BLEManager: CBPeripheralDelegate {
         if let error { errorMessage = error.localizedDescription; return }
         if characteristic.uuid == SmartLockService.deviceEventCharUUID {
             isNotificationsEnabled = characteristic.isNotifying
+        }
+    }
+
+    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
+        if let cont = pendingReadyContinuation {
+            pendingReadyContinuation = nil
+            cont.resume()
         }
     }
 }

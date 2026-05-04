@@ -6,6 +6,18 @@ class ScanViewModel: ObservableObject {
     @Published private(set) var discoveredDevices: [BLEDevice] = []
     @Published private(set) var bleState: CBManagerState = .unknown
     @Published private(set) var isConnecting: Bool = false
+    @Published var searchText: String = ""
+
+    // Search bar is only visible once there are more than 10 devices
+    var showSearch: Bool { discoveredDevices.count > 10 }
+
+    // Devices filtered by searchText; returns the full list when search is empty
+    var filteredDevices: [BLEDevice] {
+        guard showSearch && !searchText.isEmpty else { return discoveredDevices }
+        return discoveredDevices.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     private let bleManager: BLEManager
     private var cancellables = Set<AnyCancellable>()
@@ -27,7 +39,10 @@ class ScanViewModel: ObservableObject {
             .assign(to: &$isConnecting)
     }
 
-    func startScanning() { bleManager.startScanning() }
+    func startScanning() {
+        searchText = ""
+        bleManager.startScanning()
+    }
     func stopScanning()  { bleManager.stopScanning() }
     func connect(to device: BLEDevice) { bleManager.connect(to: device) }
 }

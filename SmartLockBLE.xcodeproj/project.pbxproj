@@ -20,6 +20,7 @@
 		BB320001BBBBBBBBCCCCCCCC /* LockControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB320000BBBBBBBBCCCCCCCC /* LockControlView.swift */; };
 		BB400001BBBBBBBBCCCCCCCC /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB400000BBBBBBBBCCCCCCCC /* ScanViewModel.swift */; };
 		BB410001BBBBBBBBCCCCCCCC /* LockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */; };
+		BB500001BBBBBBBBCCCCCCCC /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB500000BBBBBBBBCCCCCCCC /* DownloadService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		BB320000BBBBBBBBCCCCCCCC /* LockControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockControlView.swift; sourceTree = "<group>"; };
 		BB400000BBBBBBBBCCCCCCCC /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
 		BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockViewModel.swift; sourceTree = "<group>"; };
+		BB500000BBBBBBBBCCCCCCCC /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				BB030000BBBBBBBBCCCCCCCC /* Models */,
 				BB040000BBBBBBBBCCCCCCCC /* Views */,
 				BB050000BBBBBBBBCCCCCCCC /* ViewModels */,
+				BB060000BBBBBBBBCCCCCCCC /* Services */,
 				AA908EE22F9B2E7700373B85 /* Assets.xcassets */,
 			);
 			path = SmartLockBLE;
@@ -124,6 +127,14 @@
 				BB410000BBBBBBBBCCCCCCCC /* LockViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BB060000BBBBBBBBCCCCCCCC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BB500000BBBBBBBBCCCCCCCC /* DownloadService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +221,7 @@
 				BB320001BBBBBBBBCCCCCCCC /* LockControlView.swift in Sources */,
 				BB400001BBBBBBBBCCCCCCCC /* ScanViewModel.swift in Sources */,
 				BB410001BBBBBBBBCCCCCCCC /* LockViewModel.swift in Sources */,
+				BB500001BBBBBBBBCCCCCCCC /* DownloadService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

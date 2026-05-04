@@ -11,6 +11,9 @@ enum SmartLockService {
     // Button characteristic — Notify: 0x01 = pressed, 0x00 = released
     static let deviceEventCharUUID   = CBUUID(string: "00001524-1212-EFDE-1523-785FEABCD123")
 
+    // Optional file-transfer characteristic; BLEManager falls back to deviceCommandChar if absent
+    static let fileTransferCharUUID  = CBUUID(string: "00001526-1212-EFDE-1523-785FEABCD123")
+
     // Lock status re-uses button char for state display
     static let lockStatusCharUUID    = CBUUID(string: "00001524-1212-EFDE-1523-785FEABCD123")
 

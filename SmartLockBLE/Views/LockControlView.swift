@@ -16,12 +16,53 @@ struct LockControlView: View {
                 notificationSection
                 batterySection
                 deviceInfoSection
+                transferProgressSection
                 disconnectButton
             }
             .padding()
         }
         .navigationTitle(viewModel.deviceName)
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.downloadFile()
+                } label: {
+                    if viewModel.isDownloading {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                    } else {
+                        Label("Download File", systemImage: "arrow.down.circle")
+                            .labelStyle(.titleAndIcon)
+                    }
+                }
+                .disabled(viewModel.isDownloading || viewModel.isTransferring)
+            }
+        }
+        .alert("Download Complete", isPresented: $viewModel.showDownloadCompleteAlert) {
+            Button("Transfer") { viewModel.startTransfer() }
+            Button("Cancel", role: .cancel) { viewModel.cancelDownload() }
+        } message: {
+            Text("File downloaded successfully. Ready to transfer.")
+        }
+        .alert("Download Failed",
+               isPresented: Binding(
+                   get: { viewModel.downloadError != nil },
+                   set: { if !$0 { viewModel.downloadError = nil } }
+               )) {
+            Button("OK") { viewModel.downloadError = nil }
+        } message: {
+            Text(viewModel.downloadError ?? "")
+        }
+        .alert("Transfer Failed",
+               isPresented: Binding(
+                   get: { viewModel.transferError != nil },
+                   set: { if !$0 { viewModel.transferError = nil } }
+               )) {
+            Button("OK") { viewModel.transferError = nil }
+        } message: {
+            Text(viewModel.transferError ?? "")
+        }
         .onAppear {
             viewModel.refresh()
             viewModel.readBattery()
@@ -291,10 +332,60 @@ struct LockControlView: View {
                             .font(.caption2)
                             .foregroundStyle(.orange)
                             .padding()
+
+                        Divider()
+                        Toggle(isOn: Binding(
+                            get: { viewModel.useMockTransfer },
+                            set: { viewModel.useMockTransfer = $0 }
+                        )) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Mock Transfer")
+                                    .font(.caption.weight(.medium))
+                                Text("Simulate BLE progress without real hardware")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                     }
                 }
             }
         }
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+
+    // MARK: - Transfer Progress
+
+    private var transferProgressSection: some View {
+        Group {
+            if viewModel.isDownloading {
+                progressCard(icon: "arrow.down.circle", color: .blue,
+                             label: "Downloading...", progress: viewModel.downloadProgress)
+            } else if viewModel.isTransferring {
+                progressCard(icon: "antenna.radiowaves.left.and.right", color: .purple,
+                             label: "Transferring via BLE...", progress: viewModel.transferProgress)
+            }
+        }
+    }
+
+    private func progressCard(icon: String, color: Color, label: String, progress: Double) -> some View {
+        VStack(spacing: 8) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundStyle(color)
+                Text(label)
+                    .font(.headline)
+                Spacer()
+                Text("\(Int(progress * 100))%")
+                    .font(.subheadline.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            }
+            ProgressView(value: progress)
+                .tint(color)
+        }
+        .padding()
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
